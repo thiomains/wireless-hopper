@@ -1,0 +1,6 @@
+name: WirelessHopper
+main: de.thiomains.infinisync.wirelesshopper.WirelessHopper
+version: 1.0.0-alpha
+api-version: 1.21
+commands:
+  givehopper:
