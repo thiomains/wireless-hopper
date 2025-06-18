@@ -31,6 +31,7 @@ public class PlaceHopperListener implements Listener {
         if (event.getClickedBlock().getType() != Material.HOPPER) return;
         // TODO check ob das ein Wireless Hopper ist
         if (event.getItem() == null) return;
+        if (!event.getItem().getItemMeta().hasLore()) return;
         if (!event.getItem().getItemMeta().getLore().contains("§861 6D 6F 67 75 73")) return;
         if (!event.getHand().equals(EquipmentSlot.HAND)) return;
 
@@ -55,7 +56,7 @@ public class PlaceHopperListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (!event.getItemInHand().getItemMeta().hasLore()) return;
+        if (event.getItemInHand().getItemMeta().getLore() == null) return;
         if (!event.getItemInHand().getItemMeta().getLore().contains("§861 6D 6F 67 75 73")) return;
         if (event.getItemInHand().getItemMeta().getLore().get(0).equals("")) return;
 

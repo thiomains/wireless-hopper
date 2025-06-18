@@ -2,7 +2,6 @@ package de.thiomains.infinisync.wirelesshopper;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.block.Hopper;
 
 import java.sql.*;
 import java.util.ArrayList;
