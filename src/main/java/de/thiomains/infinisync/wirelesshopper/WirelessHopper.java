@@ -36,7 +36,7 @@ public class WirelessHopper extends JavaPlugin implements Listener {
         meta.setDisplayName("§f§lWireless Trichter");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("");
-        lore.add("§861 6D 6F 67 75 73");
+        lore.add("§8HRlW6yZo6Kc");
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
@@ -49,5 +49,14 @@ public class WirelessHopper extends JavaPlugin implements Listener {
 
     public ArrayList<HopperConnection> getHopperConnections() {
         return hopperConnections;
+    }
+
+    public void removeHopperConnection(HopperConnection hopperConnection) {
+        hopperConnections.remove(hopperConnection);
+        database.deleteHopperConnection(hopperConnection);
+    }
+
+    public DatabaseConnection getDatabase() {
+        return database;
     }
 }

@@ -99,7 +99,7 @@ public class DatabaseConnection {
     }
 
     public void deleteHopperConnection(HopperConnection hopperConnection) {
-        String sql = "DELETE FROM connections WHERE source = ?";
+        String sql = "DELETE FROM connections WHERE source LIKE ?";
 
         Location source = hopperConnection.getSource();
         String sourceLocationString = source.getWorld().getName() + "," + source.getBlockX() + "," + source.getBlockY() + "," + source.getBlockZ();
@@ -107,6 +107,7 @@ public class DatabaseConnection {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, sourceLocationString);
+            System.out.println(preparedStatement);
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

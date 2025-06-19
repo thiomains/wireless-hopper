@@ -32,7 +32,7 @@ public class PlaceHopperListener implements Listener {
         // TODO check ob das ein Wireless Hopper ist
         if (event.getItem() == null) return;
         if (!event.getItem().getItemMeta().hasLore()) return;
-        if (!event.getItem().getItemMeta().getLore().contains("§861 6D 6F 67 75 73")) return;
+        if (!event.getItem().getItemMeta().getLore().contains("§8HRlW6yZo6Kc")) return;
         if (!event.getHand().equals(EquipmentSlot.HAND)) return;
 
         event.setCancelled(true);
@@ -46,7 +46,7 @@ public class PlaceHopperListener implements Listener {
         ItemStack hopperItem = WirelessHopper.getHopperItem();
         ItemMeta hopperItemMeta = hopperItem.getItemMeta();
         ArrayList<String> lore = (ArrayList<String>) hopperItemMeta.getLore();
-        lore.set(0, "§8Verbunden mit: " + clickedHopperLocation.getBlockX() + " " + clickedHopperLocation.getBlockY() + " " + clickedHopperLocation.getBlockZ());
+        lore.set(0, "§7Verbunden mit:§a " + clickedHopperLocation.getBlockX() + " " + clickedHopperLocation.getBlockY() + " " + clickedHopperLocation.getBlockZ());
         hopperItemMeta.setLore(lore);
         hopperItem.setItemMeta(hopperItemMeta);
 
@@ -57,7 +57,7 @@ public class PlaceHopperListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if (event.getItemInHand().getItemMeta().getLore() == null) return;
-        if (!event.getItemInHand().getItemMeta().getLore().contains("§861 6D 6F 67 75 73")) return;
+        if (!event.getItemInHand().getItemMeta().getLore().contains("§8HRlW6yZo6Kc")) return;
         if (event.getItemInHand().getItemMeta().getLore().get(0).equals("")) return;
 
         String destinationLocationString = event.getItemInHand().getItemMeta().getLore().get(0);
