@@ -11,11 +11,13 @@ public class HopperRecipe {
         NamespacedKey key = new NamespacedKey(main, "wireless_hopper");
         ShapedRecipe recipe = new ShapedRecipe(key, WirelessHopper.getHopperItem());
         recipe.shape(
-                " o ",
+                "roq",
                 "ovo",
-                " o ");
+                "qor");
         recipe.setIngredient('o', Material.ENDER_EYE);
         recipe.setIngredient('v', Material.HOPPER);
+        recipe.setIngredient('q', Material.QUARTZ);
+        recipe.setIngredient('r', Material.REDSTONE);
 
         Bukkit.addRecipe(recipe);
     }
