@@ -24,6 +24,6 @@ This plugin is currently being developed and is in alpha. Bugs as duplicate or l
 
 ## To-Do
 - [x] Basic wireless functionality
-- [ ] Crafting recipe
+- [x] Crafting recipe
 - [ ] Unlinking wireless hopper items
 - [ ] Filtered hoppers
