@@ -23,6 +23,7 @@ public class WirelessHopper extends JavaPlugin implements Listener {
         new PlaceHopperListener(this);
         new HopperTransfer(this);
         new HopperBreakListener(this);
+        new HopperRecipe(this);
     }
 
     @Override
