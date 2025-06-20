@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class HopperBreakListener implements Listener {
 
@@ -31,6 +32,12 @@ public class HopperBreakListener implements Listener {
         }
         if (hc == null) return;
         main.removeHopperConnection(hc);
+        event.setCancelled(true);
+        hc.getSource().getBlock().breakNaturally(new ItemStack(Material.AIR));
+        hc.getDestination().getBlock().breakNaturally(new ItemStack(Material.AIR));
+        for (int i = 0; i < 2; i++) {
+            event.getBlock().getLocation().getWorld().dropItemNaturally(event.getBlock().getLocation(), WirelessHopper.getHopperItem());
+        }
     }
 
 }

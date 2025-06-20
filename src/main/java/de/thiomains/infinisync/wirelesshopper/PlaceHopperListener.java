@@ -65,6 +65,7 @@ public class PlaceHopperListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.HOPPER) return;
+        if (((Container) event.getClickedBlock().getState()).getCustomName() == null) return;
         if (!((Container) event.getClickedBlock().getState()).getCustomName().contains("Wireless Trichter")) return;
         if (event.getItem() == null) return;
         if (!event.getItem().getItemMeta().hasLore()) return;
