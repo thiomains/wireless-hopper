@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -45,19 +46,23 @@ public class PlaceHopperListener implements Listener {
                             Double.parseDouble(destinationLocationStrings[4])
                     );
                     destinationLocation.add(0.5, 0.5, 0.5);
-                    Vector playerToHopper = destinationLocation.clone().toVector().subtract(player.getLocation().toVector());
-                    int particlesPerBlock = 1;
-                    double distance = player.getLocation().distance(destinationLocation);
+                    RayTraceResult rayTraceResult = player.getWorld().rayTraceBlocks(player.getEyeLocation(), player.getEyeLocation().getDirection(), 4.5);
+                    if (rayTraceResult == null) continue;
+                    if (rayTraceResult.getHitBlockFace() == null) continue;
+                    Location targetBlock = rayTraceResult.getHitBlock().getRelative(rayTraceResult.getHitBlockFace()).getLocation().add(0.5, 0.5, 0.5);
+                    Vector targetBlocktoHopper = destinationLocation.clone().toVector().subtract(targetBlock.toVector());
+                    int particlesPerBlock = 2;
+                    double distance = targetBlocktoHopper.length();
 
                     for (int i = 0; i < distance * particlesPerBlock; i++) {
                         double factor = i / (double) particlesPerBlock;
-                        Vector offset = playerToHopper.clone().normalize().multiply(factor);
-                        Location particleLocation = player.getLocation().clone().add(offset);
-                        player.spawnParticle(Particle.GLOW, particleLocation, 0);
+                        Vector offset = targetBlocktoHopper.clone().normalize().multiply(factor);
+                        Location particleLocation = targetBlock.clone().add(offset);
+                        player.spawnParticle(Particle.COMPOSTER, particleLocation, 0);
                     }
                 }
             }
-        }, 0L, 10L);
+        }, 0L, 1L);
     }
 
     @EventHandler
