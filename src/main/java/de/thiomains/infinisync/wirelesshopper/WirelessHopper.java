@@ -1,6 +1,5 @@
 package de.thiomains.infinisync.wirelesshopper;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.Listener;
@@ -23,6 +22,7 @@ public class WirelessHopper extends JavaPlugin implements Listener {
         this.getCommand("givehopper").setExecutor(new GiveHopperCommand());
         new PlaceHopperListener(this);
         new HopperTransfer(this);
+        new HopperBreakListener(this);
     }
 
     @Override

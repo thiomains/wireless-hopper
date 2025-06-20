@@ -1,9 +1,8 @@
 package de.thiomains.infinisync.wirelesshopper;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
+import org.bukkit.block.Container;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -12,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
@@ -22,6 +22,42 @@ public class PlaceHopperListener implements Listener {
     public PlaceHopperListener(WirelessHopper main) {
         this.main = main;
         Bukkit.getPluginManager().registerEvents(this, main);
+        startScheduler();
+    }
+
+    private void startScheduler() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(main, new Runnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    ItemStack heldItem = player.getInventory().getItemInMainHand();
+                    if (heldItem.getType() == Material.AIR) continue;
+                    if (!heldItem.hasItemMeta()) continue;
+                    if (!heldItem.getItemMeta().hasLore()) continue;
+                    if (!heldItem.getItemMeta().getLore().contains("§8HRlW6yZo6Kc")) continue;
+                    if (heldItem.getItemMeta().getLore().get(0).equals("")) continue;
+                    String destinationLocationString = heldItem.getItemMeta().getLore().get(0);
+                    String[] destinationLocationStrings = destinationLocationString.split(" ");
+                    Location destinationLocation = new Location(
+                            player.getWorld(),
+                            Double.parseDouble(destinationLocationStrings[2]),
+                            Double.parseDouble(destinationLocationStrings[3]),
+                            Double.parseDouble(destinationLocationStrings[4])
+                    );
+                    destinationLocation.add(0.5, 0.5, 0.5);
+                    Vector playerToHopper = destinationLocation.clone().toVector().subtract(player.getLocation().toVector());
+                    int particlesPerBlock = 1;
+                    double distance = player.getLocation().distance(destinationLocation);
+
+                    for (int i = 0; i < distance * particlesPerBlock; i++) {
+                        double factor = i / (double) particlesPerBlock;
+                        Vector offset = playerToHopper.clone().normalize().multiply(factor);
+                        Location particleLocation = player.getLocation().clone().add(offset);
+                        player.spawnParticle(Particle.GLOW, particleLocation, 0);
+                    }
+                }
+            }
+        }, 0L, 10L);
     }
 
     @EventHandler
@@ -29,7 +65,7 @@ public class PlaceHopperListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (event.getClickedBlock() == null) return;
         if (event.getClickedBlock().getType() != Material.HOPPER) return;
-        // TODO check ob das ein Wireless Hopper ist
+        if (!((Container) event.getClickedBlock().getState()).getCustomName().contains("Wireless Trichter")) return;
         if (event.getItem() == null) return;
         if (!event.getItem().getItemMeta().hasLore()) return;
         if (!event.getItem().getItemMeta().getLore().contains("§8HRlW6yZo6Kc")) return;
@@ -56,6 +92,7 @@ public class PlaceHopperListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
+        if (event.getPlayer().isSneaking()) return;
         if (event.getItemInHand().getItemMeta().getLore() == null) return;
         if (!event.getItemInHand().getItemMeta().getLore().contains("§8HRlW6yZo6Kc")) return;
         if (event.getItemInHand().getItemMeta().getLore().get(0).equals("")) return;
