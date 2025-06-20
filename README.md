@@ -9,6 +9,10 @@
 1. Put `wireless-hopper.jar` into the plugins folder of your 1.20+ Spigot server
 2. Start your Spigot server
 
+## Crafting recipe
+![image](https://github.com/user-attachments/assets/ea779afe-2daf-49a5-ad9d-1b614d5c3476)
+> Recipe order can be flipped
+
 ## (WIP) Config
 - Maximum distance
 
