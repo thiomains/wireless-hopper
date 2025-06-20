@@ -34,6 +34,7 @@ public class WirelessHopper extends JavaPlugin implements Listener {
     public static ItemStack getHopperItem() {
         ItemStack item = new ItemStack(Material.HOPPER);
         ItemMeta meta = item.getItemMeta();
+        meta.setEnchantmentGlintOverride(true);
         meta.setDisplayName("§f§lWireless Trichter");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("");
