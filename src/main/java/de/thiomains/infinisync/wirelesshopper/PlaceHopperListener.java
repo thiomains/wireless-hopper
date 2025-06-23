@@ -77,6 +77,10 @@ public class PlaceHopperListener implements Listener {
         if (!event.getItem().getItemMeta().getLore().contains("§8HRlW6yZo6Kc")) return;
         if (!event.getHand().equals(EquipmentSlot.HAND)) return;
 
+        for (HopperConnection hc : main.getHopperConnections()) {
+            if (hc.getSource() == event.getClickedBlock().getLocation()) return;
+        }
+
         event.setCancelled(true);
 
         ItemStack handItem = event.getPlayer().getInventory().getItemInMainHand();
