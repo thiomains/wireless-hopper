@@ -6,7 +6,7 @@
 
     <groupId>de.thiomains.infinisync</groupId>
     <artifactId>wireless-hopper</artifactId>
-    <version>1.0.0-alpha.3</version>
+    <version>1.0.0-alpha.4-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
