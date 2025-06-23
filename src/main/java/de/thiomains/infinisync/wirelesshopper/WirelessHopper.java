@@ -2,7 +2,9 @@ package de.thiomains.infinisync.wirelesshopper;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,7 +36,8 @@ public class WirelessHopper extends JavaPlugin implements Listener {
     public static ItemStack getHopperItem() {
         ItemStack item = new ItemStack(Material.HOPPER);
         ItemMeta meta = item.getItemMeta();
-        meta.setEnchantmentGlintOverride(true);
+        item.addUnsafeEnchantment(Enchantment.THORNS, 1);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.setDisplayName("§f§lWireless Trichter");
         ArrayList<String> lore = new ArrayList<>();
         lore.add("");
