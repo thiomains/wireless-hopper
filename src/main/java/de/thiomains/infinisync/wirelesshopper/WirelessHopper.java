@@ -18,9 +18,9 @@ public class WirelessHopper extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.database = new DatabaseConnection();
+        this.database = new DatabaseConnection(this);
         hopperConnections = database.getAllHopperConnections();
-        System.out.println("Hopper Connections: " + hopperConnections.size());
+        getLogger().info("Hopper Connections: " + hopperConnections.size());
         // this.getCommand("givehopper").setExecutor(new GiveHopperCommand());
         new PlaceHopperListener(this);
         new HopperTransfer(this);

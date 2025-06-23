@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 public class DatabaseConnection {
 
+    private WirelessHopper main;
     private Connection connection;
 
-    public DatabaseConnection() {
+    public DatabaseConnection(WirelessHopper main) {
+        this.main = main;
         connect();
         createTable();
     }
@@ -20,19 +22,21 @@ public class DatabaseConnection {
 
         try {
             Connection connection = DriverManager.getConnection(url);
-            System.out.println("SQLite connection established");
+            main.getLogger().info("SQLite connection established successfully");
             this.connection = connection;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            main.getLogger().severe("SQLite connection failed: " + e.getMessage());
+            main.getLogger().severe("Disabling plugin...");
+            Bukkit.getPluginManager().disablePlugin(main);
         }
     }
 
     public void close() {
         try {
             connection.close();
-            System.out.println("SQLite connection closed successfully");
+            main.getLogger().info("SQLite connection closed successfully");
         } catch (SQLException e) {
-            System.out.println("Could not close SQLite connection: " + e.getMessage());
+            main.getLogger().severe("Could not close SQLite connection: " + e.getMessage());
         }
     }
 
@@ -46,7 +50,9 @@ public class DatabaseConnection {
             Statement statement = connection.createStatement();
             statement.execute(sql);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            main.getLogger().severe("Could not create table: " + e.getMessage());
+            main.getLogger().severe("Disabling plugin...");
+            Bukkit.getPluginManager().disablePlugin(main);
         }
     }
 
@@ -63,7 +69,7 @@ public class DatabaseConnection {
             preparedStatement.setString(2, destinationLocationString);
             preparedStatement.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            main.getLogger().severe("could not insert hopper connection: " + e.getMessage());
         }
     }
 
@@ -93,7 +99,9 @@ public class DatabaseConnection {
 
             return hopperConnections;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            main.getLogger().severe("could not get hopper connections: " + e.getMessage());
+            main.getLogger().severe("Disabling plugin...");
+            Bukkit.getPluginManager().disablePlugin(main);
             return null;
         }
     }
@@ -109,7 +117,9 @@ public class DatabaseConnection {
             preparedStatement.setString(1, sourceLocationString);
             preparedStatement.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            main.getLogger().severe("could not delete hopper connection: " + e.getMessage());
+            main.getLogger().severe("Disabling plugin...");
+            Bukkit.getPluginManager().disablePlugin(main);
         }
     }
 
