@@ -107,7 +107,6 @@ public class DatabaseConnection {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, sourceLocationString);
-            System.out.println(preparedStatement);
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
